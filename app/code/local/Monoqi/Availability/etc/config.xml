@@ -46,14 +46,14 @@
                 </observers>
             </sales_quote_collect_totals_after>
 
-<!--            <controller_action_predispatch_checkout_onepage_saveMethod>
+            <controller_action_predispatch_checkout_onepage_saveMethod>
                 <observers>
                     <monoqi_check_method>
                         <class>monoqi_availability/observer</class>
                         <method>checkSteps</method>
                     </monoqi_check_method>
                 </observers>
-            </controller_action_predispatch_checkout_onepage_saveMethod>-->
+            </controller_action_predispatch_checkout_onepage_saveMethod>
 
             <controller_action_predispatch_checkout_onepage_saveOrder>
                 <observers>
