@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Monoqi_Availability>
+            <version>0.0.1</version>
+        </Monoqi_Availability>
+    </modules>
+    <frontend>
+
+        <routers>
+            <availability>
+                <use>standard</use>
+                <args>
+                    <module>Monoqi_Availability</module>
+                    <frontName>availability</frontName>
+                </args>
+            </availability>
+        </routers>
+
+        <events>
+
+            <controller_action_predispatch_checkout_cart_add>
+                <observers>
+                    <monoqi_check_availability>
+                        <class>monoqi_availability/observer</class>
+                        <method>checkCartAdd</method>
+                    </monoqi_check_availability>
+                </observers>
+            </controller_action_predispatch_checkout_cart_add>
+
+            <controller_action_predispatch_checkout_onepage_index>
+                <observers>
+                    <monoqi_check_checkout_onepage>
+                        <class>monoqi_availability/observer</class>
+                        <method>checkQuote</method>
+                    </monoqi_check_checkout_onepage>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_index>
+
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <monoqi_check_steps>
+                        <class>monoqi_availability/observer</class>
+                        <method>checkSteps</method>
+                    </monoqi_check_steps>
+                </observers>
+            </sales_quote_collect_totals_after>
+
+<!--            <controller_action_predispatch_checkout_onepage_saveMethod>
+                <observers>
+                    <monoqi_check_method>
+                        <class>monoqi_availability/observer</class>
+                        <method>checkSteps</method>
+                    </monoqi_check_method>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_saveMethod>-->
+
+            <controller_action_predispatch_checkout_onepage_saveOrder>
+                <observers>
+                    <monoqi_check_final>
+                        <class>monoqi_availability/observer</class>
+                        <method>checkFinal</method>
+                    </monoqi_check_final>
+                </observers>
+            </controller_action_predispatch_checkout_onepage_saveOrder>
+
+        </events>
+
+    </frontend>
+    <global>
+
+        <blocks>
+            <monoqi_availability>
+                <class>Monoqi_Availability_Block</class>
+            </monoqi_availability>
+        </blocks>
+
+        <helpers>
+            <monoqi_availability>
+                <class>Monoqi_Availability_Helper</class>
+            </monoqi_availability>
+        </helpers>
+
+        <models>
+            <monoqi_availability>
+                <class>Monoqi_Availability_Model</class>
+            </monoqi_availability>
+        </models>
+
+        <resources>
+            <monoqi_availability_setup>
+                <setup>
+                    <module>Monoqi_Availability</module>
+                    <class>Mage_Catalog_Model_Resource_Setup</class>
+                </setup>
+            </monoqi_availability_setup>
+        </resources>
+
+    </global>
+</config>

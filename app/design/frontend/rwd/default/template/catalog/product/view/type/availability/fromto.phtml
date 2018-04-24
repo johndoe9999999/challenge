@@ -1,0 +1,27 @@
+<?php
+
+$_product = $this->getProduct(); ?>
+<?php if (!Mage::helper('monoqi_availability')->isAvailable($_product)): ?>
+    <p class="availability out-of-stock">
+        <span class="label"><?php echo $this->helper('monoqi_availability')->__('Availability:') ?></span>
+        <span class="value unavailable"><?php echo $this->helper('monoqi_availability')->__('Product is currently not available') ?></span>
+    </p>
+<?php endif; ?>
+
+<script>
+    new Ajax.PeriodicalUpdater("responseOutput", window.location.origin + "/availability", {
+        method: "post",
+        onSuccess: successFunc,
+        frequency: 10,
+        parameters: {
+            productId: document.querySelector(".no-display [name=product]").value,
+            status:    document.querySelector(".unavailable") ? 0 : 1
+        }
+    });
+
+    function successFunc(response) {
+        if (response.responseText === "1") {
+            window.location.reload();
+        }
+    }
+</script>
